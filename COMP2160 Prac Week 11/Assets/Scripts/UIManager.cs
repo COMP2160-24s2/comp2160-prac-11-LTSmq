@@ -40,6 +40,10 @@ public class UIManager : MonoBehaviour
     public event TargetSelectedEventHandler TargetSelected;
 #endregion
 
+#region Trackers
+    [SerializeField] private ObjectTracker tracker;
+#endregion
+
 #region Init & Destroy
     void Awake()
     {
@@ -73,7 +77,17 @@ public class UIManager : MonoBehaviour
 #region Update
     void Update()
     {
-        MoveCrosshair();
+        if(!tracker)
+        {
+            MoveCrosshair();
+        } else
+        {
+            if(tracker.InMotion()==false)
+            {
+                MoveCrosshair();
+            }
+        }
+        
         SelectTarget();
     }
 
